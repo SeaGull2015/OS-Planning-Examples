@@ -39,7 +39,7 @@ void FCFS(std::vector<Process> v = std::vector<Process>()) {
     int globalTime = 0;
 
     std::cout << "FCFS\n";
-    if (v.empty()) std::vector<Process> v = input();        
+    if (v.empty()) v = input();        
     std::vector<Process> r;
     std::queue<Process> q;
     for (auto& e : v) q.push(e);
@@ -108,7 +108,7 @@ void SJF(std::vector<Process> v = std::vector<Process>()) {
 
 int main()
 {
-    std::vector<Process> v = makeRandInp(10);
+    std::vector<Process> v = input();//
     FCFS(v);
     SJF(v);
     std::cout << "Hello World!\n";
