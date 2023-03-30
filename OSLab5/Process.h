@@ -3,15 +3,17 @@ class Process
 {
 public:
 	Process(int time, int id);
+	Process(int time, int id, int starterTime);
 	Process(const Process &P);
 	~Process();
 	void setStartTime(const int gtime);
-	int Execute(int time, const int gtime);
-	int ShowTime();
-	int GetFullTime();
+	int execute(int time, const int gtime);
+	int showTime();
+	int getFullTime();
 	int getID();
 	int getWaitingTime();
-	const int GetCPUBurst();
+	int getStartTime();
+	const int getCPUBurst();
 
 private:
 	int ID;

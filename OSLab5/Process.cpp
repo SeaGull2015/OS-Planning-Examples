@@ -11,6 +11,17 @@ Process::Process(int time, int id)
 	finishTime = -1;
 }
 
+Process::Process(int time, int id, int starterTime)
+{
+	ID = id;
+	startTime = starterTime;
+	CPUburst = time;
+	leftOverTime = time;
+	waitingTime = 0;
+	lastExec = 0;
+	finishTime = -1;
+}
+
 Process::Process(const Process& P)
 {
 	ID = P.ID;
@@ -31,29 +42,29 @@ void Process::setStartTime(const int gtime)
 	startTime = gtime;
 }
 
-int Process::Execute(int time, const int gtime)
+int Process::execute(int time, const int gtime)
 {
 	waitingTime += gtime - lastExec;
 	lastExec = gtime + time;
-	if (time > leftOverTime)
+	if (time < leftOverTime)
 	{
 		leftOverTime -= time;
 		return 0;
 	}
 	else
 	{
-		finishTime = gtime + time;
 		leftOverTime -= time;
+		finishTime = gtime + time + leftOverTime;
 		return -leftOverTime; // we passed too much time for some reason
 	}
 }
 
-int Process::ShowTime()
+int Process::showTime()
 {
 	return leftOverTime;
 }
 
-int Process::GetFullTime()
+int Process::getFullTime()
 {
 	if (finishTime == -1) return -1;
 	return finishTime - startTime;
@@ -69,7 +80,12 @@ int Process::getWaitingTime()
 	return waitingTime;
 }
 
-const int Process::GetCPUBurst()
+int Process::getStartTime()
+{
+	return startTime;
+}
+
+const int Process::getCPUBurst()
 {
 	return CPUburst;
 }
